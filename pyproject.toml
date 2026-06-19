@@ -1,0 +1,26 @@
+[project]
+name = "word-accessibility-fixer"
+version = "0.1.0"
+description = "CLI app that audits and automatically fixes common Microsoft Word accessibility issues in DOCX files."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Accessibility App Team" }]
+
+[project.scripts]
+word-a11y-fix = "word_a11y_fixer.cli:main"
+word-a11y-fix-gui = "word_a11y_fixer.gui:main"
+
+[project.optional-dependencies]
+build = ["pyinstaller>=6"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
