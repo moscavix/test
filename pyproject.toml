@@ -9,6 +9,10 @@ authors = [{ name = "Accessibility App Team" }]
 
 [project.scripts]
 word-a11y-fix = "word_a11y_fixer.cli:main"
+word-a11y-fix-gui = "word_a11y_fixer.gui:main"
+
+[project.optional-dependencies]
+build = ["pyinstaller>=6"]
 
 [build-system]
 requires = ["setuptools>=68"]
