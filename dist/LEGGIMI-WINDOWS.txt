@@ -1,0 +1,9 @@
+ESPLORA BANCA D'ITALIA - DEMO PER WINDOWS
+
+1. Copia Esplora-Banca-d-Italia.html in una cartella del tuo PC.
+2. Fai doppio clic sul file.
+3. Se Windows chiede con quale programma aprirlo, scegli Edge, Chrome o Firefox.
+
+La ricerca, i filtri e la navigazione funzionano senza installare programmi e
+senza un server. La connessione Internet serve soltanto quando si apre una
+risorsa originale sul sito www.bancaditalia.it.

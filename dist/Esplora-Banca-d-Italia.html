@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Demo di navigazione delle risorse della Banca d'Italia">
+  <title>Esplora Banca d'Italia</title>
+  <style>
+:root { --ink:#18221c; --muted:#667069; --paper:#f6f3ec; --white:#fff; --green:#155c43; --green2:#dfece5; --gold:#cf9e48; --line:#dddcd5; --serif:Georgia,"Times New Roman",serif; --sans:Inter,ui-sans-serif,system-ui,sans-serif }
+*{box-sizing:border-box} body{margin:0;color:var(--ink);background:var(--paper);font-family:var(--sans)}
+a{color:inherit}.masthead{height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(24px,5vw,78px);background:#fff;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:13px;text-decoration:none}.brand-mark{display:grid;place-items:center;width:42px;height:42px;border:1px solid var(--green);border-radius:50%;font:700 15px var(--serif);color:var(--green)}.brand strong{display:block;font:700 21px var(--serif);line-height:1}.brand small{display:block;margin-top:4px;color:var(--muted);font-size:11px;letter-spacing:.06em;text-transform:uppercase}.source-link{font-size:13px;color:var(--green);text-decoration:none;font-weight:650}
+.hero{padding:54px clamp(24px,8vw,120px) 62px;color:white;background:linear-gradient(120deg,rgba(10,52,38,.98),rgba(20,96,68,.93)),radial-gradient(circle at 80% 20%,#4d9679,transparent 45%)}.eyebrow{margin:0 0 13px;color:#bcd7c9;text-transform:uppercase;letter-spacing:.17em;font-size:11px;font-weight:750}.hero h1{margin:0;font:400 clamp(38px,5vw,62px)/1.03 var(--serif);letter-spacing:-.025em}.hero h1 em{color:#d9b873;font-weight:400}.hero-copy{max-width:600px;color:#d8e5df;line-height:1.6;margin:18px 0 28px}.search-box{max-width:760px;height:58px;display:flex;align-items:center;gap:14px;padding:0 18px;border-radius:4px;background:#fff;color:var(--muted);box-shadow:0 12px 30px #08271f55}.search-box>span:first-child{font-size:30px;line-height:0;transform:rotate(-20deg)}.search-box input{width:100%;border:0;outline:0;font:15px var(--sans);color:var(--ink)}kbd{padding:4px 7px;border:1px solid #ddd;border-radius:4px;background:#f5f5f3;font:11px var(--sans)}
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1280px;margin:auto;min-height:620px}.sidebar{padding:38px 28px 60px;border-right:1px solid var(--line);background:#f9f7f2}.side-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:800;color:var(--muted)}.side-heading button{border:0;background:none;font-size:20px;color:var(--green)}
+.tree-list{margin:0;padding:0;list-style:none}.tree-list .tree-list{padding-left:15px}.tree-button{width:100%;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border:0;border-left:2px solid transparent;background:none;text-align:left;font:13px var(--sans);cursor:pointer;color:#465049}.tree-button:hover{color:var(--green)}.tree-button.active{background:var(--green2);border-left-color:var(--green);color:var(--green);font-weight:750}.tree-count{font-size:10px;opacity:.65}.about-card{display:flex;gap:10px;margin-top:34px;padding:16px;background:#ebe9e1;color:var(--muted);font-size:11px;line-height:1.55}.about-card span{display:grid;place-items:center;flex:0 0 22px;height:22px;border:1px solid var(--muted);border-radius:50%;font-family:var(--serif)}.about-card p{margin:0}.about-card strong{color:var(--ink)}
+.content{padding:42px clamp(25px,4vw,58px) 70px;background:#fff}.content-heading,.filter-row{display:flex;align-items:end;justify-content:space-between;gap:20px}.breadcrumb{margin:0 0 10px;color:var(--green);font-size:11px}.content h2{margin:0;font:400 32px var(--serif)}.sort{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.sort select{display:block;margin-top:5px;padding:8px 26px 8px 9px;border:1px solid var(--line);background:white;color:var(--ink)}.filter-row{align-items:center;margin:28px 0 22px;border-bottom:1px solid var(--line);padding-bottom:18px}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{padding:7px 11px;border:1px solid var(--line);border-radius:20px;background:#fff;color:var(--muted);font-size:11px;cursor:pointer}.chip.active{border-color:var(--green);background:var(--green);color:white}.result-count{white-space:nowrap;color:var(--muted);font-size:11px}
+.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.resource-card{position:relative;display:flex;flex-direction:column;min-height:205px;padding:23px;border:1px solid var(--line);background:#fff;transition:.2s ease}.resource-card:hover{transform:translateY(-2px);border-color:#9eb8aa;box-shadow:0 10px 24px #193a2a12}.card-top{display:flex;align-items:center;justify-content:space-between}.type{color:var(--green);font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:800}.star{color:var(--gold)}.resource-card h3{margin:18px 0 9px;font:400 22px/1.15 var(--serif)}.resource-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:13px}.tag{padding:4px 7px;background:#f0f2ee;color:#5d6962;font-size:9px}.card-link{margin-top:auto;padding-top:17px;color:var(--green);font-size:11px;text-decoration:none;font-weight:750}.empty{text-align:center;padding:70px;color:var(--muted)}footer{display:flex;justify-content:space-between;gap:20px;padding:25px clamp(24px,5vw,78px);background:#14271f;color:#aebcb5;font-size:10px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:25px}.sidebar.collapsed nav,.sidebar.collapsed .about-card{display:none}.resource-grid{grid-template-columns:1fr}.content{padding:30px 22px}.hero{padding:42px 24px}.masthead{padding:0 20px}.brand small{display:none}.source-link{font-size:11px}footer{flex-direction:column}.content-heading{align-items:start}.sort{display:none}}
+
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="Torna a tutte le risorse">
+      <span class="brand-mark" aria-hidden="true">BI</span>
+      <span><strong>Esplora</strong><small>Risorse della Banca d'Italia</small></span>
+    </a>
+    <a class="source-link" href="https://www.bancaditalia.it/" target="_blank" rel="noopener">Sito istituzionale ↗</a>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Catalogo dimostrativo</p>
+    <h1>Conoscere l'economia,<br><em>una risorsa alla volta.</em></h1>
+    <p class="hero-copy">Esplora pubblicazioni, dati e servizi attraverso un percorso semplice e trasparente.</p>
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <span class="sr-only">Cerca nel catalogo</span>
+      <input id="search" type="search" placeholder="Cerca per titolo, argomento o parola chiave…" autocomplete="off">
+      <kbd>⌘ K</kbd>
+    </label>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Navigazione del catalogo">
+      <div class="side-heading"><span>Esplora per tema</span><button id="menu-toggle" aria-label="Mostra o nascondi temi" aria-expanded="true">−</button></div>
+      <nav id="tree"></nav>
+      <div class="about-card"><span>i</span><p><strong>Informazioni sul catalogo</strong><br>Dati dimostrativi aggiornati il 7 agosto 2026.</p></div>
+    </aside>
+
+    <section class="content" aria-live="polite">
+      <div class="content-heading">
+        <div><p id="breadcrumb" class="breadcrumb">Catalogo / Tutte le risorse</p><h2 id="section-title">Tutte le risorse</h2></div>
+        <label class="sort">Ordina
+          <select id="sort"><option value="featured">In evidenza</option><option value="title">Titolo A–Z</option><option value="type">Tipologia</option></select>
+        </label>
+      </div>
+      <div class="filter-row">
+        <div id="type-filters" class="chips" aria-label="Filtra per tipologia"></div>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div id="resources" class="resource-grid"></div>
+      <div id="empty" class="empty" hidden><strong>Nessuna risorsa trovata</strong><p>Prova a cambiare ricerca o filtri.</p></div>
+    </section>
+  </main>
+  <footer><span>Prototipo indipendente per la navigazione di risorse pubbliche.</span><span>I contenuti si aprono sul sito della Banca d'Italia.</span></footer>
+  <script>
+/* Generato da scripts/build-local-data.js: non modificare a mano. */
+window.CATALOG_DATA = {
+  "meta": {
+    "title": "Esplora Banca d'Italia",
+    "description": "Catalogo dimostrativo di risorse pubbliche",
+    "updatedAt": "2026-08-07",
+    "source": "https://www.bancaditalia.it/"
+  },
+  "resourceTypes": [
+    {
+      "id": "page",
+      "label": "Pagina informativa"
+    },
+    {
+      "id": "publication",
+      "label": "Pubblicazione"
+    },
+    {
+      "id": "report",
+      "label": "Rapporto",
+      "parentId": "publication"
+    },
+    {
+      "id": "dataset",
+      "label": "Dati e statistiche"
+    },
+    {
+      "id": "service",
+      "label": "Servizio"
+    }
+  ],
+  "topics": [
+    {
+      "id": "economy",
+      "label": "Economia e moneta"
+    },
+    {
+      "id": "monetary-policy",
+      "label": "Politica monetaria",
+      "parentId": "economy"
+    },
+    {
+      "id": "italian-economy",
+      "label": "Economia italiana",
+      "parentId": "economy"
+    },
+    {
+      "id": "financial-system",
+      "label": "Sistema finanziario"
+    },
+    {
+      "id": "supervision",
+      "label": "Vigilanza",
+      "parentId": "financial-system"
+    },
+    {
+      "id": "payments",
+      "label": "Pagamenti e moneta"
+    },
+    {
+      "id": "statistics",
+      "label": "Statistiche"
+    },
+    {
+      "id": "citizens",
+      "label": "Cittadini e famiglie"
+    },
+    {
+      "id": "research",
+      "label": "Ricerca economica"
+    }
+  ],
+  "navigationNodes": [
+    {
+      "id": "home",
+      "label": "Tutte le risorse",
+      "order": 0
+    },
+    {
+      "id": "economy",
+      "label": "Economia e moneta",
+      "parentId": "home",
+      "order": 10
+    },
+    {
+      "id": "monetary",
+      "label": "Politica monetaria",
+      "parentId": "economy",
+      "order": 10
+    },
+    {
+      "id": "financial",
+      "label": "Sistema finanziario",
+      "parentId": "home",
+      "order": 20
+    },
+    {
+      "id": "supervision",
+      "label": "Vigilanza",
+      "parentId": "financial",
+      "order": 10
+    },
+    {
+      "id": "payments",
+      "label": "Pagamenti e moneta",
+      "parentId": "home",
+      "order": 30
+    },
+    {
+      "id": "data",
+      "label": "Dati e statistiche",
+      "parentId": "home",
+      "order": 40
+    },
+    {
+      "id": "citizens",
+      "label": "Per cittadini e famiglie",
+      "parentId": "home",
+      "order": 50
+    }
+  ],
+  "resources": [
+    {
+      "id": "annual-report",
+      "title": "Relazione annuale",
+      "typeId": "report",
+      "description": "La relazione sull'attività della Banca e sull'economia italiana.",
+      "url": "https://www.bancaditalia.it/pubblicazioni/relazione-annuale/",
+      "topicIds": [
+        "italian-economy"
+      ],
+      "navigationNodeIds": [
+        "economy"
+      ],
+      "language": "it",
+      "featured": true
+    },
+    {
+      "id": "economic-bulletin",
+      "title": "Bollettino economico",
+      "typeId": "publication",
+      "description": "Analisi congiunturale dell'economia italiana e internazionale.",
+      "url": "https://www.bancaditalia.it/pubblicazioni/bollettino-economico/",
+      "topicIds": [
+        "italian-economy",
+        "monetary-policy"
+      ],
+      "navigationNodeIds": [
+        "economy",
+        "monetary"
+      ],
+      "language": "it",
+      "featured": true
+    },
+    {
+      "id": "regional-economies",
+      "title": "Economie regionali",
+      "typeId": "report",
+      "description": "Analisi delle economie e dei territori italiani.",
+      "url": "https://www.bancaditalia.it/pubblicazioni/economie-regionali/",
+      "topicIds": [
+        "italian-economy"
+      ],
+      "navigationNodeIds": [
+        "economy"
+      ],
+      "language": "it"
+    },
+    {
+      "id": "working-papers",
+      "title": "Temi di discussione",
+      "typeId": "publication",
+      "description": "Lavori di ricerca economica prodotti dalla Banca d'Italia.",
+      "url": "https://www.bancaditalia.it/pubblicazioni/temi-discussione/",
+      "topicIds": [
+        "research"
+      ],
+      "navigationNodeIds": [
+        "economy"
+      ],
+      "language": "it"
+    },
+    {
+      "id": "qef",
+      "title": "Questioni di economia e finanza",
+      "typeId": "publication",
+      "description": "Studi e documentazione su temi economici e finanziari.",
+      "url": "https://www.bancaditalia.it/pubblicazioni/qef/",
+      "topicIds": [
+        "research",
+        "financial-system"
+      ],
+      "navigationNodeIds": [
+        "economy",
+        "financial"
+      ],
+      "language": "it"
+    },
+    {
+      "id": "statistics",
+      "title": "Statistiche",
+      "typeId": "dataset",
+      "description": "Il punto di accesso alle statistiche prodotte dalla Banca d'Italia.",
+      "url": "https://www.bancaditalia.it/statistiche/",
+      "topicIds": [
+        "statistics"
+      ],
+      "navigationNodeIds": [
+        "data"
+      ],
+      "language": "it",
+      "featured": true
+    },
+    {
+      "id": "monetary-policy",
+      "title": "Politica monetaria",
+      "typeId": "page",
+      "description": "Il ruolo della Banca d'Italia nell'Eurosistema e nella politica monetaria.",
+      "url": "https://www.bancaditalia.it/compiti/polmon-garanzie/",
+      "topicIds": [
+        "monetary-policy"
+      ],
+      "navigationNodeIds": [
+        "monetary"
+      ],
+      "language": "it"
+    },
+    {
+      "id": "supervision",
+      "title": "Vigilanza bancaria e finanziaria",
+      "typeId": "page",
+      "description": "Obiettivi, strumenti e attività della vigilanza sul sistema finanziario.",
+      "url": "https://www.bancaditalia.it/compiti/vigilanza/",
+      "topicIds": [
+        "supervision"
+      ],
+      "navigationNodeIds": [
+        "supervision"
+      ],
+      "language": "it",
+      "featured": true
+    },
+    {
+      "id": "payment-systems",
+      "title": "Sistemi di pagamento e mercati",
+      "typeId": "page",
+      "description": "Infrastrutture, sistemi di pagamento e attività sui mercati.",
+      "url": "https://www.bancaditalia.it/compiti/sispaga-mercati/",
+      "topicIds": [
+        "payments"
+      ],
+      "navigationNodeIds": [
+        "payments"
+      ],
+      "language": "it"
+    },
+    {
+      "id": "citizen-services",
+      "title": "Servizi per il cittadino",
+      "typeId": "service",
+      "description": "Informazioni, strumenti e servizi rivolti direttamente al pubblico.",
+      "url": "https://www.bancaditalia.it/servizi-cittadino/",
+      "topicIds": [
+        "citizens"
+      ],
+      "navigationNodeIds": [
+        "citizens"
+      ],
+      "language": "it",
+      "featured": true
+    }
+  ]
+};
+
+"use strict";
+
+const state = { catalog: null, nodeId: "home", typeId: "all", query: "", sort: "featured" };
+const $ = (selector) => document.querySelector(selector);
+
+function indexById(items) { return new Map(items.map((item) => [item.id, item])); }
+function normalize(value) { return value.toLocaleLowerCase("it").normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+
+function descendants(nodeId) {
+  const found = new Set([nodeId]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    state.catalog.navigationNodes.forEach((node) => {
+      if (found.has(node.parentId) && !found.has(node.id)) { found.add(node.id); changed = true; }
+    });
+  }
+  return found;
+}
+
+function visibleResources() {
+  const nodes = descendants(state.nodeId);
+  const topics = indexById(state.catalog.topics);
+  const types = indexById(state.catalog.resourceTypes);
+  const query = normalize(state.query);
+  return state.catalog.resources.filter((resource) => {
+    const inNode = state.nodeId === "home" || resource.navigationNodeIds.some((id) => nodes.has(id));
+    const inType = state.typeId === "all" || resource.typeId === state.typeId;
+    const haystack = normalize([resource.title, resource.description, types.get(resource.typeId)?.label,
+      ...resource.topicIds.map((id) => topics.get(id)?.label || "")].join(" "));
+    return inNode && inType && (!query || haystack.includes(query));
+  }).sort((a, b) => {
+    if (state.sort === "title") return a.title.localeCompare(b.title, "it");
+    if (state.sort === "type") return (types.get(a.typeId)?.label || "").localeCompare(types.get(b.typeId)?.label || "", "it");
+    return Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || a.title.localeCompare(b.title, "it");
+  });
+}
+
+function renderTree() {
+  const children = new Map();
+  state.catalog.navigationNodes.forEach((node) => {
+    const key = node.parentId || "root";
+    children.set(key, [...(children.get(key) || []), node]);
+  });
+  const countFor = (id) => state.catalog.resources.filter((r) => id === "home" || r.navigationNodeIds.some((n) => descendants(id).has(n))).length;
+  const branch = (parentId) => `<ul class="tree-list">${(children.get(parentId) || []).sort((a,b) => a.order-b.order).map((node) =>
+    `<li><button class="tree-button ${node.id === state.nodeId ? "active" : ""}" data-node="${node.id}"><span>${node.label}</span><span class="tree-count">${countFor(node.id)}</span></button>${branch(node.id)}</li>`).join("")}</ul>`;
+  $("#tree").innerHTML = branch("root");
+  $("#tree").querySelectorAll("button").forEach((button) => button.addEventListener("click", () => { state.nodeId = button.dataset.node; render(); }));
+}
+
+function renderFilters() {
+  const available = new Set(state.catalog.resources.map((r) => r.typeId));
+  const options = [{ id: "all", label: "Tutte" }, ...state.catalog.resourceTypes.filter((t) => available.has(t.id))];
+  $("#type-filters").innerHTML = options.map((type) => `<button class="chip ${type.id === state.typeId ? "active" : ""}" data-type="${type.id}">${type.label}</button>`).join("");
+  $("#type-filters").querySelectorAll("button").forEach((button) => button.addEventListener("click", () => { state.typeId = button.dataset.type; renderResults(); renderFilters(); }));
+}
+
+function renderResults() {
+  const resources = visibleResources();
+  const nodes = indexById(state.catalog.navigationNodes);
+  const types = indexById(state.catalog.resourceTypes);
+  const topics = indexById(state.catalog.topics);
+  const selected = nodes.get(state.nodeId);
+  $("#section-title").textContent = selected.label;
+  $("#breadcrumb").textContent = `Catalogo / ${selected.label}`;
+  $("#result-count").textContent = `${resources.length} ${resources.length === 1 ? "risorsa" : "risorse"}`;
+  $("#resources").innerHTML = resources.map((resource) => `<article class="resource-card">
+    <div class="card-top"><span class="type">${types.get(resource.typeId)?.label}</span>${resource.featured ? '<span class="star" title="In evidenza">◆</span>' : ""}</div>
+    <h3>${resource.title}</h3><p>${resource.description}</p>
+    <div class="tags">${resource.topicIds.map((id) => `<span class="tag">${topics.get(id)?.label}</span>`).join("")}</div>
+    <a class="card-link" href="${resource.url}" target="_blank" rel="noopener">Apri la risorsa <span aria-hidden="true">↗</span></a>
+  </article>`).join("");
+  $("#empty").hidden = resources.length > 0;
+}
+
+function render() { renderTree(); renderFilters(); renderResults(); }
+
+function start() {
+  if (!window.CATALOG_DATA) {
+    $("#resources").innerHTML = "<p>Impossibile caricare il catalogo locale.</p>";
+    return;
+  }
+  state.catalog = window.CATALOG_DATA;
+  render();
+}
+
+$("#search").addEventListener("input", (event) => { state.query = event.target.value; renderResults(); });
+$("#sort").addEventListener("change", (event) => { state.sort = event.target.value; renderResults(); });
+$("#menu-toggle").addEventListener("click", (event) => {
+  const collapsed = $(".sidebar").classList.toggle("collapsed");
+  event.currentTarget.textContent = collapsed ? "+" : "−";
+  event.currentTarget.setAttribute("aria-expanded", String(!collapsed));
+});
+document.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key === "k") { event.preventDefault(); $("#search").focus(); } });
+start();
+
+  </script>
+</body>
+</html>
