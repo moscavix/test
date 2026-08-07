@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Demo di navigazione delle risorse della Banca d'Italia">
+  <title>Esplora Banca d'Italia</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- La copia JavaScript del catalogo consente l'apertura diretta via file://. -->
+  <script src="data/catalog.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="Torna a tutte le risorse">
+      <span class="brand-mark" aria-hidden="true">BI</span>
+      <span><strong>Esplora</strong><small>Risorse della Banca d'Italia</small></span>
+    </a>
+    <a class="source-link" href="https://www.bancaditalia.it/" target="_blank" rel="noopener">Sito istituzionale ↗</a>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">Catalogo dimostrativo</p>
+    <h1>Conoscere l'economia,<br><em>una risorsa alla volta.</em></h1>
+    <p class="hero-copy">Esplora pubblicazioni, dati e servizi attraverso un percorso semplice e trasparente.</p>
+    <label class="search-box">
+      <span aria-hidden="true">⌕</span>
+      <span class="sr-only">Cerca nel catalogo</span>
+      <input id="search" type="search" placeholder="Cerca per titolo, argomento o parola chiave…" autocomplete="off">
+      <kbd>⌘ K</kbd>
+    </label>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Navigazione del catalogo">
+      <div class="side-heading"><span>Esplora per tema</span><button id="menu-toggle" aria-label="Mostra o nascondi temi" aria-expanded="true">−</button></div>
+      <nav id="tree"></nav>
+      <div class="about-card"><span>i</span><p><strong>Informazioni sul catalogo</strong><br>Dati dimostrativi aggiornati il 7 agosto 2026.</p></div>
+    </aside>
+
+    <section class="content" aria-live="polite">
+      <div class="content-heading">
+        <div><p id="breadcrumb" class="breadcrumb">Catalogo / Tutte le risorse</p><h2 id="section-title">Tutte le risorse</h2></div>
+        <label class="sort">Ordina
+          <select id="sort"><option value="featured">In evidenza</option><option value="title">Titolo A–Z</option><option value="type">Tipologia</option></select>
+        </label>
+      </div>
+      <div class="filter-row">
+        <div id="type-filters" class="chips" aria-label="Filtra per tipologia"></div>
+        <span id="result-count" class="result-count"></span>
+      </div>
+      <div id="resources" class="resource-grid"></div>
+      <div id="empty" class="empty" hidden><strong>Nessuna risorsa trovata</strong><p>Prova a cambiare ricerca o filtri.</p></div>
+    </section>
+  </main>
+  <footer><span>Prototipo indipendente per la navigazione di risorse pubbliche.</span><span>I contenuti si aprono sul sito della Banca d'Italia.</span></footer>
+</body>
+</html>
